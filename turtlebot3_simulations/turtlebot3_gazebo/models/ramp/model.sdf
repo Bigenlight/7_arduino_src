@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<sdf version="1.5">
+  <model name="ramp">
+    <!-- Make the ramp static so it doesn't move upon collisions -->
+    <static>true</static>
+
+    <link name="ramp_link">
+      <!-- Optional: Set the initial pose of the ramp -->
+      <pose>0 0 0 0 0 0</pose>
+
+      <!-- Inertial properties are required even for static models -->
+      <inertial>
+        <mass>1.0</mass>
+        <inertia>
+          <ixx>1.0</ixx>
+          <ixy>0.0</ixy>
+          <ixz>0.0</ixz>
+          <iyy>1.0</iyy>
+          <iyz>0.0</iyz>
+          <izz>1.0</izz>
+        </inertia>
+      </inertial>
+
+      <!-- Collision element using the ramp mesh with scaling -->
+      <collision name="collision">
+        <geometry>
+          <mesh>
+            <uri>model://ramp/meshes/ramp_19.stl</uri>
+          </mesh>
+        </geometry>
+        <scale>0.5 0.5 0.5</scale> <!-- Scale down by 50% -->
+        <surface>
+          <contact>
+            <collide_bitmask>1</collide_bitmask>
+          </contact>
+          <friction>
+            <ode>
+              <mu>1.0</mu> <!-- Friction coefficient -->
+              <mu2>1.0</mu2>
+            </ode>
+          </friction>
+          <bounce>
+            <restitution_coefficient>0.0</restitution_coefficient>
+          </bounce>
+        </surface>
+      </collision>
+
+      <!-- Visual element using the ramp mesh with scaling and white material -->
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model://ramp/meshes/ramp_19.stl</uri>
+          </mesh>
+        </geometry>
+        <scale>0.5 0.5 0.5</scale> <!-- Scale down by 50% -->
+        <material>
+          <ambient>1 1 1 1</ambient>      <!-- Ambient color (white) -->
+          <diffuse>0.9 0.9 0.9 1</diffuse>      <!-- Diffuse color (white) -->
+          <specular>0.5 0.5 0.5 1</specular> <!-- Specular highlights -->
+          <emissive>0 0 0 1</emissive>    <!-- Emissive color (none) -->
+        </material>
+      </visual>
+    </link>
+  </model>
+</sdf>
+
