@@ -64,7 +64,7 @@
     <joint name="virtual_joint" type="fixed"><!-- 월드랑 베이스 링크 연결, 종류는 고정-->
         <parent link="world"/>
         <child link="base_link"/>
-        <origin xyz="120 0 0" rpy="0 0 ${PI/2}"/>
+        <origin xyz="119.97 0 0" rpy="0 0 ${PI/2}"/>
     </joint>
     <!-- 위에 쓰고 CMake로-->
 
@@ -256,6 +256,7 @@
                 <material>Gazebo/Blue</material> 
                 <surface>
                     <contact>
+                        <!-- <collide_bitmask>0x02</collide_bitmask> -->
                         <ode>
                         <!-- <kp>100000.0</kp>
                         <kd>1.0</kd>
@@ -272,6 +273,24 @@
                 </surface>
             </gazebo>
         </collision>
+
+        <visual>
+            <origin rpy="0 0 0" xyz="0 0 5"/>
+            <!-- <origin rpy="-${PI/2} 0 0" xyz="0 0 15"/> -->
+            <geometry>
+                <box size="10 1 0.5"/> 
+                <!-- <mesh filename="package://arduinobot_description/meshes/simplebox_box_v5.stl" scale="0.2 0.2 0.2"/>              -->
+            </geometry>
+        </visual>
+
+        <collision>
+            <origin rpy="0 0 0" xyz="0 0 5"/>
+            <geometry>
+                <box size="10 1 0.5"/> 
+                <!-- <mesh filename="package://arduinobot_description/meshes/simplebox_box_v5.stl" scale="0.2 0.2 0.2"/>              -->
+            </geometry>
+        </collision>
+        
     </link>
 
 
