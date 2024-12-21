@@ -17,8 +17,8 @@
             <!-- 하드웨어 명령 보내는 태그-->
             <command_interface name="position">
                 <!--파라미터, 최대 90, 최소 -90, 두배로 늘리기-->
-                <param name="max">${PI}</param>
-                <param name="min">-${PI}</param>
+                <param name="max">${2*PI}</param>
+                <param name="min">-${2*PI}</param>
             </command_interface>
             <!--하드웨어에서 명령 읽기-->
             <state_interface name="position"/>

@@ -26,8 +26,10 @@ public:
 
 private:
   rclcpp_action::Server<arduinobot_msgs::action::ArduinobotTask>::SharedPtr action_server_;
-  std::shared_ptr<moveit::planning_interface::MoveGroupInterface> arm_move_group_, gripper_move_group_;
-  std::vector<double> arm_joint_goal_, gripper_joint_goal_;
+  // std::shared_ptr<moveit::planning_interface::MoveGroupInterface> arm_move_group_, gripper_move_group_;
+  // std::vector<double> arm_joint_goal_, gripper_joint_goal_;
+  std::shared_ptr<moveit::planning_interface::MoveGroupInterface> arm_move_group_;
+  std::vector<double> arm_joint_goal_;
 
   rclcpp_action::GoalResponse goalCallback(
       const rclcpp_action::GoalUUID& uuid,
@@ -46,9 +48,9 @@ private:
     if(arm_move_group_){
       arm_move_group_->stop();
     }
-    if(gripper_move_group_){
-      gripper_move_group_->stop();
-    }
+    // if(gripper_move_group_){
+    //   gripper_move_group_->stop();
+    // }
     return rclcpp_action::CancelResponse::ACCEPT;
   }
 
@@ -68,25 +70,82 @@ private:
     if(!arm_move_group_){
       arm_move_group_ = std::make_shared<moveit::planning_interface::MoveGroupInterface>(shared_from_this(), "arm");
     }
-    if(!gripper_move_group_){
-      gripper_move_group_ = std::make_shared<moveit::planning_interface::MoveGroupInterface>(shared_from_this(), "gripper");
-    }
+    // if(!gripper_move_group_){
+    //   gripper_move_group_ = std::make_shared<moveit::planning_interface::MoveGroupInterface>(shared_from_this(), "gripper");
+    // }
 
+
+// 선착장
     if (goal_handle->get_goal()->task_number == 0)
     {
-      arm_joint_goal_ = {0.0, 0.0, 0.0};
-      gripper_joint_goal_ = {-0.7, 0.7};
+            // Initialize arm_joint_goal_ with the specified positions
+      arm_joint_goal_ = {
+          0.0,      // joint_1
+          -0.38722253047037647,       // joint_2
+          -2.1691167910005085,        // joint_3
+          -0.34212209414448047,       // joint_4
+          1.3104448420473949,          // joint_5
+          -9.639613808243297e-05       // joint_6
+      };
+
+      // gripper_joint_goal_ = {-0.7, 0.7};
     }
     else if (goal_handle->get_goal()->task_number == 1)
     {
-      arm_joint_goal_ = {-1.14, -0.6, -0.07};
-      gripper_joint_goal_ = {0.0, 0.0};
+      arm_joint_goal_ = {0.2, 0.2, 0.0, 0.0, 0.0, 0.0};
+      // gripper_joint_goal_ = {0.0, 0.0};
     }
     else if (goal_handle->get_goal()->task_number == 2)
     {
-      arm_joint_goal_ = {-1.57,0.0,-0.9};
-      gripper_joint_goal_ = {0.0, 0.0};
+      arm_joint_goal_ = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
     }
+    else if (goal_handle->get_goal()->task_number == 3)
+    {
+      arm_joint_goal_ = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    }
+    else if (goal_handle->get_goal()->task_number == 4)
+    {
+      arm_joint_goal_ = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    }
+    else if (goal_handle->get_goal()->task_number == 5)
+    {
+      arm_joint_goal_ = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    }
+    else if (goal_handle->get_goal()->task_number == 6)
+    {
+      arm_joint_goal_ = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    }
+    else if (goal_handle->get_goal()->task_number == 7)
+    {
+      arm_joint_goal_ = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    }
+    else if (goal_handle->get_goal()->task_number == 8)
+    {
+      arm_joint_goal_ = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    }
+    else if (goal_handle->get_goal()->task_number == 9)
+    {
+      arm_joint_goal_ = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    }
+
+    //대기 자세
+    else if (goal_handle->get_goal()->task_number == 10)
+    {
+      arm_joint_goal_ = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    }
+    // 선착장에서 뒤로 뺀 상태
+    else if (goal_handle->get_goal()->task_number == 11)
+    {
+      arm_joint_goal_ = {
+        0.0,      // joint_1
+        -0.38522253047037647,       // joint_2
+        -2.171167910005085,        // joint_3
+        -0.34212209414448047,       // joint_4
+        1.3204448420473949,          // joint_5
+        0.0      // joint_6
+        };
+    }
+    
     else
     {
       RCLCPP_ERROR(get_logger(), "Invalid Task Number");
@@ -94,11 +153,17 @@ private:
     }
 
     arm_move_group_->setStartState(*arm_move_group_->getCurrentState());
-    gripper_move_group_->setStartState(*gripper_move_group_->getCurrentState());
+    // gripper_move_group_->setStartState(*gripper_move_group_->getCurrentState());
 
     bool arm_within_bounds = arm_move_group_->setJointValueTarget(arm_joint_goal_);
-    bool gripper_within_bounds = gripper_move_group_->setJointValueTarget(gripper_joint_goal_);
-    if (!arm_within_bounds | !gripper_within_bounds)
+    // bool gripper_within_bounds = gripper_move_group_->setJointValueTarget(gripper_joint_goal_);
+    // if (!arm_within_bounds | !gripper_within_bounds)
+    // {
+    //   RCLCPP_WARN(get_logger(),
+    //               "Target joint position(s) were outside of limits, but we will plan and clamp to the limits ");
+    //   return;
+    // }
+    if (!arm_within_bounds)
     {
       RCLCPP_WARN(get_logger(),
                   "Target joint position(s) were outside of limits, but we will plan and clamp to the limits ");
@@ -108,13 +173,19 @@ private:
     moveit::planning_interface::MoveGroupInterface::Plan arm_plan;
     moveit::planning_interface::MoveGroupInterface::Plan gripper_plan;
     bool arm_plan_success = (arm_move_group_->plan(arm_plan) == moveit::core::MoveItErrorCode::SUCCESS);
-    bool gripper_plan_success = (gripper_move_group_->plan(gripper_plan) == moveit::core::MoveItErrorCode::SUCCESS);
+    // bool gripper_plan_success = (gripper_move_group_->plan(gripper_plan) == moveit::core::MoveItErrorCode::SUCCESS);
     
-    if(arm_plan_success && gripper_plan_success)
+    // if(arm_plan_success && gripper_plan_success)
+    // {
+    //   RCLCPP_INFO(get_logger(), "Planner SUCCEED, moving the arme and the gripper");
+    //   arm_move_group_->move();
+    //   gripper_move_group_->move();
+    // }
+    if(arm_plan_success)
     {
-      RCLCPP_INFO(get_logger(), "Planner SUCCEED, moving the arme and the gripper");
+      RCLCPP_INFO(get_logger(), "Planner SUCCEED, moving the arm");
       arm_move_group_->move();
-      gripper_move_group_->move();
+      // gripper_move_group_->move();
     }
     else
     {

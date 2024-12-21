@@ -64,7 +64,7 @@
     <joint name="virtual_joint" type="fixed"><!-- 월드랑 베이스 링크 연결, 종류는 고정-->
         <parent link="world"/>
         <child link="base_link"/>
-        <origin xyz="100 0 0" rpy="0 0 0"/>
+        <origin xyz="120 0 0" rpy="0 0 ${PI/2}"/>
     </joint>
     <!-- 위에 쓰고 CMake로-->
 
@@ -104,7 +104,7 @@
         <axis xyz="0 0 1"/><!-- z 축이 회전하는 것이다.-->
         <origin rpy="0 0 0" xyz="0 0 0"/><!-- T matrix, 즉 z축으로 0.307 만큼 올라가는 뜻! -->
         <!--조인트 움직임 한계 조절, effort는 토크 -->
-        <limit lower="${-PI}" upper="${PI}" effort="${effort}" velocity="${velocity}"/>
+        <limit lower="${-2*PI}" upper="${2*PI}" effort="${effort}" velocity="${velocity}"/>
         <!--xacro로 지정한 변수를 집어넣어서 유지보수를 쉽게!! ${변수}로 사용가능. 이때 연산은 안이든 밖이든 상관 없는 듯-->
         <!-- 90 이동 제한이라 PI/2-->
     </joint>
@@ -235,20 +235,20 @@
         <xacro:default_inertial mass="500.0"/>
 
         <visual>
-            <!-- <origin rpy="0 0 0" xyz="0 0 10"/> -->
-            <origin rpy="-${PI/2} 0 0" xyz="0 0 1"/>
+            <origin rpy="0 0 0" xyz="0 0 10"/>
+            <!-- <origin rpy="-${PI/2} 0 0" xyz="0 0 15"/> -->
             <geometry>
-                <!-- <box size="10 1 10"/>  -->
-                <mesh filename="package://arduinobot_description/meshes/simplebox_box_v5.stl" scale="0.2 0.2 0.2"/>             
+                <box size="10 0.5 10"/> 
+                <!-- <mesh filename="package://arduinobot_description/meshes/simplebox_box_v5.stl" scale="0.2 0.2 0.2"/>              -->
             </geometry>
         </visual>
 
         <collision>
-            <!-- <origin rpy="0 0 0" xyz="0 0 10"/> -->
-            <origin rpy="-${PI/2} 0 0" xyz="0 0 1"/>
+            <origin rpy="0 0 0" xyz="0 0 10"/>
+            <!-- <origin rpy="-${PI/2} 0 0" xyz="0 0 15"/> -->
             <geometry>
-                <!-- <box size="10 1 10"/> -->
-                <mesh filename="package://arduinobot_description/meshes/simplebox_box_v5.stl" scale="0.2 0.2 0.2"/>             
+                <box size="10 0.5 10"/>
+                <!-- <mesh filename="package://arduinobot_description/meshes/simplebox_box_v5.stl" scale="0.2 0.2 0.2"/>              -->
             </geometry>
 
             <!-- Add Gazebo friction parameters here -->
