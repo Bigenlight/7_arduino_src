@@ -90,49 +90,116 @@ private:
 
       // gripper_joint_goal_ = {-0.7, 0.7};
     }
+    // 1~3 1층
     else if (goal_handle->get_goal()->task_number == 1)
     {
-      arm_joint_goal_ = {0.2, 0.2, 0.0, 0.0, 0.0, 0.0};
+      arm_joint_goal_ = {
+        1.5708,   // joint_1 (90°)
+        0.22689,  // joint_2 (13°)
+        -1.93732, // joint_3 (-111°)
+        -0.85521, // joint_4 (-49°)
+        0.87266,  // joint_5 (50°)
+        0.0       // joint_6 (0°)
+      };
       // gripper_joint_goal_ = {0.0, 0.0};
     }
     else if (goal_handle->get_goal()->task_number == 2)
     {
-      arm_joint_goal_ = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+      arm_joint_goal_ = {
+        3.14159,  // joint_1 (180°)
+        0.0,      // joint_2 (0°)
+        -1.76278, // joint_3 (-101°)
+        -0.73304, // joint_4 (-42°)
+        0.82030,  // joint_5 (47°)
+        0.0       // joint_6 (0°)
+      };
     }
     else if (goal_handle->get_goal()->task_number == 3)
     {
-      arm_joint_goal_ = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+      arm_joint_goal_ = {
+        -1.5708,   // joint_1 (90°)
+        0.13963,  // joint_2 (8°)
+        -1.86750, // joint_3 (-107°)
+        -0.80285, // joint_4 (-46°)
+        0.85521,  // joint_5 (49°)
+        0.0       // joint_6 (0°)
+      };
     }
+    // 4~6 2층
     else if (goal_handle->get_goal()->task_number == 4)
     {
-      arm_joint_goal_ = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+      arm_joint_goal_ = {
+        1.5707963, // joint_1 (88°)
+        0.33161,  // joint_2 (19°)
+        -1.63906, // joint_3 (-94°)
+        -0.95993, // joint_4 (-55°)
+        0.57596,  // joint_5 (33°)
+        0.0       // joint_6 (0°)
+      };
     }
     else if (goal_handle->get_goal()->task_number == 5)
     {
-      arm_joint_goal_ = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+      arm_joint_goal_ = {
+        3.14159,  // joint_1 (180°)
+        0.12217,  // joint_2 (7°)
+        -1.48353, // joint_3 (-85°)
+        -0.85521, // joint_4 (-49°)
+        0.52360,  // joint_5 (30°)
+        0.0       // joint_6 (0°)
+      };
     }
     else if (goal_handle->get_goal()->task_number == 6)
     {
-      arm_joint_goal_ = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+      arm_joint_goal_ = {
+        -1.5707963, // joint_1 (88°)
+        0.33161,  // joint_2 (19°)
+        -1.63906, // joint_3 (-94°)
+        -0.95993, // joint_4 (-55°)
+        0.57596,  // joint_5 (33°)
+        0.0       // joint_6 (0°)
+      };
     }
+    // 7 ~ 9 3층
     else if (goal_handle->get_goal()->task_number == 7)
     {
-      arm_joint_goal_ = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+      arm_joint_goal_ = {
+        1.5707963, // joint_1
+        0.19199,   // joint_2 (11°)
+        -1.20428,  // joint_3 (-69°)
+        -0.90993,  // joint_4 (-55°)
+        0.20925,   // joint_5 (16°)
+        0.0   // joint_6
+    };
     }
     else if (goal_handle->get_goal()->task_number == 8)
     {
-      arm_joint_goal_ = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+      arm_joint_goal_ = {
+        3.141592,     // joint_1 (181°)
+        0.10472,   // joint_2 (6°)
+        -1.15192,  // joint_3 (-66°)
+        -0.85521,  // joint_4 (-49°)
+        0.19199,   // joint_5 (11°)
+        0.0        // joint_6 (0°)
+      };
     }
     else if (goal_handle->get_goal()->task_number == 9)
     {
-      arm_joint_goal_ = {
-        -1.5708,
-        -0.03458617472280334,
-        -0.6185177207410861,
-        -0.09674909645632379,
-        -0.8288238211501788,
-        0.042413916450438016,
-        };
+      // arm_joint_goal_ = {
+      //   -1.5708,
+      //   0.29958275218756025,
+      //   -0.1585688515019097,
+      //   -0.3077632572415294,
+      //   -1.579489117678886,
+      //   0.0
+      //   };
+        arm_joint_goal_ = {
+        -1.5707963, // joint_1
+        0.19199,   // joint_2 (11°)
+        -1.20428,  // joint_3 (-69°)
+        -0.90993,  // joint_4 (-55°)
+        0.20925,   // joint_5 (16°)
+        0.0   // joint_6
+    };
     }
 
     //대기 자세
@@ -152,7 +219,7 @@ private:
         0.0      // joint_6
         };
     }
-    // 우에서 수평 자세
+    // 꼭대기에서 수평 자세
     else if (goal_handle->get_goal()->task_number == 12)
     {
       arm_joint_goal_ = {
@@ -162,6 +229,18 @@ private:
         0.5390118470062522,       // joint_4
         -2.121032898178865,          // joint_5
         0.0      // joint_6
+        };
+    }
+    // 중간에서 수평 자세
+    else if (goal_handle->get_goal()->task_number == 13)
+    {
+      arm_joint_goal_ = {
+        0.0,       // joint_1 (0°)
+        1.22173,   // joint_2 (70°)
+        -1.60570,  // joint_3 (-92°)
+        -1.34390,  // joint_4 (-77°)
+        0.15708,   // joint_5 (9°)
+        0.0        // joint_6 (0°)
         };
     }
     

@@ -8,7 +8,10 @@ material Table/Marble_Lightmap
       {
         texture marble.png
       }            
-
+      texture_unit
+      {
+        texture table_lightmap.png      
+      }
     }
   }
 }
